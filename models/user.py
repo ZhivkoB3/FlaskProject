@@ -4,7 +4,6 @@ from models.enums import RoleType
 
 class BaseUserModel(db.Model):
     __abstract__ = True
-# TODO: Add validation
     pk = db.Column(db.Integer, primary_key=True)
     first_name = db.Column(db.String, nullable=False)
     last_name = db.Column(db.String, nullable=False)
@@ -24,7 +23,7 @@ class PaymentReceiver(BaseUserModel):
     )
 
 
-class DataEntry(BaseUserModel):
+class DataEntryModel(BaseUserModel):
     __tablename__ = 'data_entries'
     role = db.Column(
         db.Enum(RoleType),

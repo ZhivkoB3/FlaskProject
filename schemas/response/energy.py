@@ -6,7 +6,6 @@ from models.enums import RoleType
 
 class BaseEnergyCreateResponseSchema(Schema):
     pk = fields.Integer(required=True)
-    total_amount = fields.Integer(required=True)
     casting = fields.Integer(required=True)
     high_pressure_casting = fields.Integer(required=True)
     glazing = fields.Integer(required=True)
@@ -15,8 +14,9 @@ class BaseEnergyCreateResponseSchema(Schema):
     created_on = fields.DateTime(required=True)
     person = EnumField(RoleType, by_value=True)
 
+
 class CompressorsCreateResponseSchema(Schema):
-    total_amount = fields.Integer(required=True)
+    total_kwh = fields.Integer(required=True)
     compressor_one = fields.Integer(required=True)
     compressor_two = fields.Integer(required=True)
     compressor_three = fields.Integer(required=True)
@@ -25,14 +25,16 @@ class CompressorsCreateResponseSchema(Schema):
 
 
 class ElectricityCreateResponseSchema(BaseEnergyCreateResponseSchema):
+    total_kwh = fields.Integer(required=True)
     kilns = fields.Integer(required=True)
     shuttle_kilns = fields.Integer(required=True)
 
 
 class NaturalGasCreateResponseSchema(BaseEnergyCreateResponseSchema):
+    total_nm3 = fields.Integer(required=True)
     kilns = fields.Integer(required=True)
     shuttle_kilns = fields.Integer(required=True)
 
 
 class WaterCreateResponseSchema(BaseEnergyCreateResponseSchema):
-    pass
+    total_m3 = fields.Integer(required=True)

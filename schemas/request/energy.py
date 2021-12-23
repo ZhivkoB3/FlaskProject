@@ -1,8 +1,7 @@
-from marshmallow import Schema, fields, validate
+from marshmallow import Schema, fields
 
 
 class BaseCreateRequestSchema(Schema):
-    total_amount = fields.Integer(required=True)
     casting = fields.Integer(required=True)
     high_pressure_casting = fields.Integer(required=True)
     glazing = fields.Integer(required=True)
@@ -11,7 +10,7 @@ class BaseCreateRequestSchema(Schema):
 
 
 class CompressorsCreateRequestSchema(Schema):
-    total_amount = fields.Integer(required=True)
+    total_kwh = fields.Integer(required=True)
     compressor_one = fields.Integer(required=True)
     compressor_two = fields.Integer(required=True)
     compressor_three = fields.Integer(required=True)
@@ -20,14 +19,16 @@ class CompressorsCreateRequestSchema(Schema):
 
 
 class ElectricityCreateRequestSchema(BaseCreateRequestSchema):
+    total_kwh = fields.Integer(required=True)
     kilns = fields.Integer(required=True)
     shuttle_kilns = fields.Integer(required=True)
 
 
 class NaturalGasCreateRequestSchema(BaseCreateRequestSchema):
+    total_Nm3 = fields.Integer(required=True)
     kilns = fields.Integer(required=True)
     shuttle_kilns = fields.Integer(required=True)
 
 
 class WaterCreateRequestSchema(BaseCreateRequestSchema):
-    pass
+    total_m3 = fields.Integer(required=True)

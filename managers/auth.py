@@ -5,6 +5,7 @@ from decouple import config
 from flask_httpauth import HTTPTokenAuth
 from werkzeug.exceptions import BadRequest
 
+from models.user import DataEntryModel
 
 class AuthManager:
     @staticmethod
@@ -19,7 +20,7 @@ class AuthManager:
     @staticmethod
     def decode_token(token):
         try:
-            data = jwt.decode(token, key=config('JWT_TOKEN'), algorithm=['HS256'])
+            data = jwt.decode(token, key=config('JWT_TOKEN'), algorithms=['HS256'])
             return data['sub'], data['role']
         except jwt.ExpiredSignatureError:
             raise BadRequest('Token expired')
@@ -33,5 +34,5 @@ auth = HTTPTokenAuth(scheme='Bearer')
 @auth.verify_token
 def verify_token(token):
     user_id, role = AuthManager.decode_token(token)
-    user = eval(f'{role}.query.filter_by(pk={user_id}).first()')
+    user = eval(f"{role}.query.filter_by(pk={user_id}).first()")
     return user
