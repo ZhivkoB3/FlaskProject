@@ -1,7 +1,7 @@
 from werkzeug.exceptions import NotFound
 
 from db import db
-from models.energy import WaterModel, NaturalGasModel
+from models.energy import WaterModel, NaturalGasModel, ElectricityModel, CompressorsModel
 from managers.auth import auth
 
 
@@ -57,5 +57,116 @@ class GasManager:
         db.session.add(energy_data)
         db.session.commit()
         return energy_data
+
+    @staticmethod
+    def delete(id_):
+        gas_q = NaturalGasModel.query.filter_by(pk = id_)
+        gas = gas_q.first()
+        if not gas:
+            raise NotFound('Data not present')
+
+        db.session.delete(gas)
+        db.session.commit()
+
+
+    @staticmethod
+    def update(data, id_):
+        gas_q = NaturalGasModel.query.filter_by(pk=id_)
+        gas = gas_q.first()
+        if not gas:
+            raise NotFound('Data not present')
+        user = auth.current_user()
+
+        if not user.pk == gas.data_entry_id:
+            raise NotFound('Data not present')
+
+        gas_q.update(data)
+        db.session.add(gas)
+        db.session.commit()
+        return gas
+
+
+class ElectricityManager:
+    @staticmethod
+    def get_all():
+        return ElectricityModel.query.all()
+
+    @staticmethod
+    def create(data, data_entry_pk):
+        data['data_entry_id'] = data_entry_pk
+        energy_data = ElectricityModel(**data)
+        db.session.add(energy_data)
+        db.session.commit()
+        return energy_data
+
+    @staticmethod
+    def delete(id_):
+        electricity_q = ElectricityModel.query.filter_by(pk=id_)
+        electricity = electricity_q.first()
+
+        if not electricity:
+            raise NotFound('Data not present')
+
+        db.session.delete(electricity)
+        db.session.commit()
+
+    @staticmethod
+    def update(data, id_):
+        electricity_q = ElectricityModel.query.filter_by(pk=id_)
+        electricity = electricity_q.first()
+        if not electricity:
+            raise NotFound('Data not present')
+        user = auth.current_user()
+
+        if not user.pk == electricity.data_entry_id:
+            raise NotFound('Data not present')
+
+        electricity_q.update(data)
+        db.session.add(electricity)
+        db.session.commit()
+        return electricity
+
+class CompressorsManager:
+    @staticmethod
+    def get_all():
+        return CompressorsModel.query.all()
+
+    @staticmethod
+    def create(data, data_entry_pk):
+        data['data_entry_id'] = data_entry_pk
+        energy_data = CompressorsModel(**data)
+        db.session.add(energy_data)
+        db.session.commit()
+        return energy_data
+
+    @staticmethod
+    def delete(id_):
+        compressors_q = CompressorsModel.filter_by(pk=id_)
+        compressors = compressors_q.first()
+
+        if not compressors:
+            raise NotFound('Data not present')
+
+        db.session.delete(compressors)
+        db.session.commit()
+
+    @staticmethod
+    def update(data, id_):
+        compressors_q = CompressorsModel.query.filter_by(pk=id_)
+        compressors = compressors_q.first()
+
+        if not compressors:
+            raise NotFound('Data not present')
+        user = auth.current_user()
+
+        if not user.pk == compressors.data_entry_id:
+            raise NotFound('Data not present')
+
+        compressors_q.update(data)
+        db.session.add(compressors)
+        db.session.commit()
+        return compressors
+
+
 
 
