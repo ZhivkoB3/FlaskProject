@@ -2,7 +2,6 @@ from werkzeug.exceptions import NotFound
 
 from db import db
 from models.energy import WaterModel, NaturalGasModel, ElectricityModel, CompressorsModel
-from managers.auth import auth
 
 
 class WaterManager:
@@ -33,10 +32,6 @@ class WaterManager:
         water_q = WaterModel.query.filter_by(pk=id_)
         water = water_q.first()
         if not water:
-            raise NotFound('Data not present')
-        user = auth.current_user()
-
-        if not user.pk == water.data_entry_id:
             raise NotFound('Data not present')
 
         water_q.update(data)
@@ -75,10 +70,6 @@ class GasManager:
         gas = gas_q.first()
         if not gas:
             raise NotFound('Data not present')
-        user = auth.current_user()
-
-        if not user.pk == gas.data_entry_id:
-            raise NotFound('Data not present')
 
         gas_q.update(data)
         db.session.add(gas)
@@ -116,10 +107,6 @@ class ElectricityManager:
         electricity = electricity_q.first()
         if not electricity:
             raise NotFound('Data not present')
-        user = auth.current_user()
-
-        if not user.pk == electricity.data_entry_id:
-            raise NotFound('Data not present')
 
         electricity_q.update(data)
         db.session.add(electricity)
@@ -156,10 +143,6 @@ class CompressorsManager:
         compressors = compressors_q.first()
 
         if not compressors:
-            raise NotFound('Data not present')
-        user = auth.current_user()
-
-        if not user.pk == compressors.data_entry_id:
             raise NotFound('Data not present')
 
         compressors_q.update(data)

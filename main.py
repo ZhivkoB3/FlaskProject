@@ -14,7 +14,6 @@ migrate = Migrate(app, db)
 api = Api(app)
 
 [api.add_resource(*r) for r in routes]
-
 scheduler.start()
 
 if __name__ == "__main__":

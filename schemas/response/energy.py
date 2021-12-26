@@ -1,7 +1,4 @@
 from marshmallow import Schema, fields
-from marshmallow_enum import EnumField
-
-from models.enums import RoleType
 
 
 class BaseEnergyCreateResponseSchema(Schema):
@@ -12,7 +9,7 @@ class BaseEnergyCreateResponseSchema(Schema):
     sorting = fields.Integer(required=True)
     administration = fields.Integer(required=True)
     created_on = fields.DateTime(required=True)
-    person = EnumField(RoleType, by_value=True)
+    data_entry_id = fields.Integer(required=True)
 
 
 class CompressorsCreateResponseSchema(Schema):
@@ -31,7 +28,7 @@ class ElectricityCreateResponseSchema(BaseEnergyCreateResponseSchema):
 
 
 class NaturalGasCreateResponseSchema(BaseEnergyCreateResponseSchema):
-    total_nm3 = fields.Integer(required=True)
+    total_Nm3 = fields.Integer(required=True)
     kilns = fields.Integer(required=True)
     shuttle_kilns = fields.Integer(required=True)
 
