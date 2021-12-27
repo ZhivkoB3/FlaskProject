@@ -40,7 +40,8 @@ class WaterDataDeleteAndUpdate(Resource):
     @permission_required(RoleType.data_entry, RoleType.data_analyst)
     @validate_schema(WaterCreateRequestSchema)
     def put(self, id_):
-        update_data = WaterManager.update(request.get_json(), id_)
+        current_user = auth.current_user()
+        update_data = WaterManager.update(request.get_json(), id_, current_user.pk)
         schema = WaterCreateResponseSchema()
         return schema.dump(update_data)
 
@@ -74,7 +75,8 @@ class GasDataDeleteAndUpdate(Resource):
     @permission_required(RoleType.data_entry, RoleType.data_analyst)
     @validate_schema(NaturalGasCreateRequestSchema)
     def put(self, id_):
-        update_data = GasManager.update(request.get_json(), id_)
+        current_user = auth.current_user()
+        update_data = GasManager.update(request.get_json(), id_, current_user.pk)
         schema = NaturalGasCreateResponseSchema()
         return schema.dump(update_data)
 
@@ -108,7 +110,8 @@ class ElectricityDeleteAndUpdate(Resource):
     @permission_required(RoleType.data_entry, RoleType.data_analyst)
     @validate_schema(ElectricityCreateRequestSchema)
     def put(self, id_):
-        update_data = ElectricityManager.update(request.get_json(), id_)
+        current_user = auth.current_user()
+        update_data = ElectricityManager.update(request.get_json(), id_, current_user.pk)
         schema = ElectricityCreateResponseSchema()
         return schema.dump(update_data)
 
@@ -142,6 +145,7 @@ class CompressorsDeleteAndUpdate(Resource):
     @permission_required(RoleType.data_entry, RoleType.data_analyst)
     @validate_schema(CompressorsCreateRequestSchema)
     def put(self, id_):
-        update_data = CompressorsManager.update(request.get_json(), id_)
+        current_user = auth.current_user()
+        update_data = CompressorsManager.update(request.get_json(), id_, current_user.pk)
         schema = CompressorsCreateResponseSchema()
         return schema.dump(update_data)

@@ -28,7 +28,8 @@ class WaterManager:
         db.session.commit()
 
     @staticmethod
-    def update(data, id_):
+    def update(data, id_, data_entry_pk):
+        data['updated_by'] = data_entry_pk
         water_q = WaterModel.query.filter_by(pk=id_)
         water = water_q.first()
         if not water:
@@ -65,7 +66,8 @@ class GasManager:
 
 
     @staticmethod
-    def update(data, id_):
+    def update(data, id_, data_entry_pk):
+        data['updated_by'] = data_entry_pk
         gas_q = NaturalGasModel.query.filter_by(pk=id_)
         gas = gas_q.first()
         if not gas:
@@ -102,7 +104,8 @@ class ElectricityManager:
         db.session.commit()
 
     @staticmethod
-    def update(data, id_):
+    def update(data, id_, data_entry_pk):
+        data['updated_by'] = data_entry_pk
         electricity_q = ElectricityModel.query.filter_by(pk=id_)
         electricity = electricity_q.first()
         if not electricity:
@@ -138,7 +141,8 @@ class CompressorsManager:
         db.session.commit()
 
     @staticmethod
-    def update(data, id_):
+    def update(data, id_, data_entry_pk):
+        data['updated_by'] = data_entry_pk
         compressors_q = CompressorsModel.query.filter_by(pk=id_)
         compressors = compressors_q.first()
 
