@@ -55,7 +55,7 @@ class ListUpdateGasTable(Resource):
         return schema.dump(gas_amount, many=True)
 
     @auth.login_required()
-    @permission_required(RoleType.data_entry)
+    @permission_required(RoleType.data_entry, RoleType.data_analyst)
     @validate_schema(NaturalGasCreateRequestSchema)
     def post(self):
         current_user = auth.current_user()

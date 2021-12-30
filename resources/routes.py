@@ -1,6 +1,7 @@
 from resources.auth import Login, Register, RegisterPaymentProvider
 from resources.energy import ListUpdateWaterTable, ListUpdateGasTable, WaterDataDeleteAndUpdate, GasDataDeleteAndUpdate, \
     ListUpdateElectricityTable, ElectricityDeleteAndUpdate, ListUpdateCompressorsTable, CompressorsDeleteAndUpdate
+from resources.user import ChangeUserRole
 
 routes = (
     (Register, '/register'),
@@ -17,5 +18,6 @@ routes = (
     (ElectricityDeleteAndUpdate, '/energy/electricity/<int:id_>'),
     # compressors data related
     (ListUpdateCompressorsTable, '/energy/compressors'),
-    (CompressorsDeleteAndUpdate, '/energy/compressors/<int:id_>')
+    (CompressorsDeleteAndUpdate, '/energy/compressors/<int:id_>'),
+    (ChangeUserRole, '/role_change/<int:id_>')
 )

@@ -23,37 +23,10 @@ class PaymentReceiver(BaseUserModel):
     )
 
 
-class DataEntryModel(BaseUserModel):
-    __tablename__ = 'data_entries'
+class UserModel(BaseUserModel):
+    __tablename__ = 'users'
     role = db.Column(
         db.Enum(RoleType),
-        default = RoleType.data_entry,
-        nullable=False
-    )
-
-
-class DataAnalyst(BaseUserModel):
-    __tablename__ = 'data_analysts'
-    role = db.Column(
-        db.Enum(RoleType),
-        default = RoleType.data_analyst,
-        nullable=False
-    )
-
-
-class Accountant(BaseUserModel):
-    __tablename__ = 'accountants'
-    role = db.Column(
-        db.Enum(RoleType),
-        default = RoleType.accountant,
-        nullable=False
-    )
-
-
-class CEO(BaseUserModel):
-    __tablename__ = 'CEO'
-    role = db.Column(
-        db.Enum(RoleType),
-        default = RoleType.ceo,
+        default=RoleType.unknown,
         nullable=False
     )

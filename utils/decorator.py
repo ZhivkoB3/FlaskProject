@@ -16,6 +16,7 @@ def validate_schema(schema_name):
         return decorated_func
     return wrapper
 
+
 # def permission_required(permission):
 #     def wrapper(func):
 #         def decorated_func(*args, **kwargs):
@@ -27,16 +28,26 @@ def validate_schema(schema_name):
 #     return wrapper
 
 
+# def permission_required(permission_one, permission_two=None):
+#     def wrapper(func):
+#         def decorated_func(*args, **kwargs):
+#             user = auth.current_user()
+#             if permission_two is None:
+#                 if not user.role == permission_one:
+#                     raise Forbidden('You do not have access to this resource')
+#             else:
+#                 if not user.role == permission_one or user.role == permission_two:
+#                     raise Forbidden('You do not have access to this resource')
+#             return func(*args, **kwargs)
+#         return decorated_func
+#     return wrapper
+
 def permission_required(permission_one, permission_two=None):
     def wrapper(func):
         def decorated_func(*args, **kwargs):
             user = auth.current_user()
-            if permission_two is None:
-                if not user.role == permission_one:
-                    raise Forbidden('You do not have access to this resource')
-            else:
-                if not user.role == permission_one or user.role == permission_two:
-                    raise Forbidden('You do not have access to this resource')
+            if not user.role == permission_one or user.role == permission_two:
+                raise Forbidden('You do not have access to this resource')
             return func(*args, **kwargs)
         return decorated_func
     return wrapper

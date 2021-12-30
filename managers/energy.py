@@ -131,7 +131,7 @@ class CompressorsManager:
 
     @staticmethod
     def delete(id_):
-        compressors_q = CompressorsModel.filter_by(pk=id_)
+        compressors_q = CompressorsModel.query.filter_by(pk=id_)
         compressors = compressors_q.first()
 
         if not compressors:

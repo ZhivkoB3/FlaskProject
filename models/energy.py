@@ -12,11 +12,11 @@ class BaseEnergyModel(db.Model):
 
     @declared_attr
     def data_entry_id(self):
-        return db.Column(db.Integer, db.ForeignKey('data_entries.pk'))
+        return db.Column(db.Integer, db.ForeignKey('users.pk'))
 
     @declared_attr
     def updated_by(self):
-        return db.Column(db.Integer, db.ForeignKey('data_entries.pk'))
+        return db.Column(db.Integer, db.ForeignKey('users.pk'))
 
 
 class CompressorsModel(BaseEnergyModel):

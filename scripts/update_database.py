@@ -4,23 +4,68 @@ from decouple import config
 from apscheduler.schedulers.background import BackgroundScheduler
 
 
-
 def update_water_database():
     database = (f"postgresql://{config('DB_USER')}:{config('DB_PASSWORD')}"
-               f"@localhost:{config('DB_PORT')}/{config('DB_NAME')}")
+                f"@localhost:{config('DB_PORT')}/{config('DB_NAME')}")
     engine = sqlalchemy.create_engine(database)
     sql_data = pd.read_sql_table('water', engine)
     df = pd.DataFrame(sql_data)
     df = df.sort_values(by=['pk'])
-    df[['total_m3', 'casting', 'high_pressure_casting', 'glazing', 'sorting', 'administration']] = df[['total_m3', 'casting', 'high_pressure_casting', 'glazing', 'sorting', 'administration']].diff()
+    df[['total_m3', 'casting', 'high_pressure_casting', 'glazing', 'sorting', 'administration']] = df[
+        ['total_m3', 'casting', 'high_pressure_casting', 'glazing', 'sorting', 'administration']].diff()
     df.set_index('pk', inplace=True)
     df.to_sql('Daily Water consumption', engine, if_exists='replace')
-    print('DataBase updated !')
+    print('Water database updated !')
 
+
+def update_gas_database():
+    database = (f"postgresql://{config('DB_USER')}:{config('DB_PASSWORD')}"
+                f"@localhost:{config('DB_PORT')}/{config('DB_NAME')}")
+    engine = sqlalchemy.create_engine(database)
+    sql_data = pd.read_sql_table('natural_gas', engine)
+    df = pd.DataFrame(sql_data)
+    df = df.sort_values(by=['pk'])
+    df[['total_Nm3', 'casting', 'high_pressure_casting', 'glazing', 'sorting', 'administration', 'kilns',
+        'shuttle_kilns']] = df[
+        ['total_Nm3', 'casting', 'high_pressure_casting', 'glazing', 'sorting', 'administration', 'kilns',
+         'shuttle_kilns']].diff()
+    df.set_index('pk', inplace=True)
+    df.to_sql('Daily natural gas consumption', engine, if_exists='replace')
+    print('Gas database updated !')
+
+
+def update_electricity_database():
+    database = (f"postgresql://{config('DB_USER')}:{config('DB_PASSWORD')}"
+                f"@localhost:{config('DB_PORT')}/{config('DB_NAME')}")
+    engine = sqlalchemy.create_engine(database)
+    sql_data = pd.read_sql_table('electricity', engine)
+    df = pd.DataFrame(sql_data)
+    df = df.sort_values(by=['pk'])
+    df[['total_kwh', 'casting', 'high_pressure_casting', 'glazing', 'sorting', 'administration', 'kilns',
+        'shuttle_kilns']] = df[
+        ['total_kwh', 'casting', 'high_pressure_casting', 'glazing', 'sorting', 'administration', 'kilns',
+         'shuttle_kilns']].diff()
+    df.set_index('pk', inplace=True)
+    df.to_sql('Daily electricity consumption', engine, if_exists='replace')
+    print('Electricity database updated !')
+
+
+def update_compressors_database():
+    database = (f"postgresql://{config('DB_USER')}:{config('DB_PASSWORD')}"
+                f"@localhost:{config('DB_PORT')}/{config('DB_NAME')}")
+    engine = sqlalchemy.create_engine(database)
+    sql_data = pd.read_sql_table('compressors', engine)
+    df = pd.DataFrame(sql_data)
+    df = df.sort_values(by=['pk'])
+    df[['total_kwh', 'compressor_one', 'compressor_two', 'compressor_three', 'compressor_four', 'compressor_five']] = df[
+        ['total_kwh', 'compressor_one', 'compressor_two', 'compressor_three', 'compressor_four', 'compressor_five']].diff()
+    df.set_index('pk', inplace=True)
+    df.to_sql('Daily compressors consumption', engine, if_exists='replace')
+    print('Compressors database updated !')
 
 
 scheduler = BackgroundScheduler(timezone='Europe/Sofia')
-scheduler.add_job(func=update_water_database, trigger='interval', seconds=900)
-
-
-
+scheduler.add_job(func=update_water_database, trigger='interval', seconds=1800)
+scheduler.add_job(func=update_gas_database, trigger='interval', seconds=1800)
+scheduler.add_job(func=update_electricity_database, trigger='interval', seconds=1800)
+scheduler.add_job(func=update_compressors_database, trigger='interval', seconds=1800)
