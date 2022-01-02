@@ -20,7 +20,7 @@ class ListUpdateWaterTable(Resource):
         return schema.dump(water_amount, many=True)
 
     @auth.login_required()
-    @permission_required(RoleType.data_entry)
+    @permission_required(RoleType.data_entry, RoleType.data_analyst)
     @validate_schema(WaterCreateRequestSchema)
     def post(self):
         current_user = auth.current_user()

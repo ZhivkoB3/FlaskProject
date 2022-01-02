@@ -11,7 +11,7 @@ class BaseEnergyModel(db.Model):
     updated_on = db.Column(db.DateTime, onupdate=func.now())
 
     @declared_attr
-    def data_entry_id(self):
+    def user_id(self):
         return db.Column(db.Integer, db.ForeignKey('users.pk'))
 
     @declared_attr

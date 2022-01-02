@@ -46,8 +46,9 @@ def permission_required(permission_one, permission_two=None):
     def wrapper(func):
         def decorated_func(*args, **kwargs):
             user = auth.current_user()
-            if not user.role == permission_one or user.role == permission_two:
-                raise Forbidden('You do not have access to this resource')
+            if not user.role == permission_one:
+                if not user.role == permission_two:
+                    raise Forbidden('You do not have access to this resource')
             return func(*args, **kwargs)
         return decorated_func
     return wrapper

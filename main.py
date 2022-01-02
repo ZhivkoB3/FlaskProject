@@ -1,21 +1,16 @@
-from flask import Flask
-from flask_migrate import Migrate
-from flask_restful import Api
-
-from config import DevApplication
+from config import create_app
 from db import db
-from resources.routes import routes
 from scripts.update_database import scheduler
 
-app = Flask(__name__)
-app.config.from_object(DevApplication)
-db.init_app(app)
-migrate = Migrate(app, db)
-api = Api(app)
-
-[api.add_resource(*r) for r in routes]
+app = create_app()
 scheduler.start()
+
+
+@app.before_first_request
+def init_request():
+    db.init_app(app)
+    db.create_all()
+
 
 if __name__ == "__main__":
     app.run()
-
