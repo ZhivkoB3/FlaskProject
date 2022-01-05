@@ -3,6 +3,23 @@ import sqlalchemy
 from decouple import config
 from apscheduler.schedulers.background import BackgroundScheduler
 
+"""
+These scripts make new SQL tables and update them. The values that are added to the new tables
+are the difference between two records. This is used because in the main tables
+that we are writing our data is with accumulation and it is hard to wrap
+your head around. Having the difference between the days is easier for analysis
+and also for making reports.
+
+The index of the tables is the "pk" and also the values are sorted by the "pk".
+
+When updating the tables these scrips delete the old ones and replace them with a new one.
+If the tables exist. If they do not exist they just create a new one.
+
+There is a separate script for every table - water, gas, electricity, compressors.
+
+The scripts are made with a scheduler so we can update the time how often we update
+these tables. Currently they are set to 1800 seconds or 30 minutes.
+"""
 
 def update_water_database():
     database = (f"postgresql://{config('DB_USER')}:{config('DB_PASSWORD')}"

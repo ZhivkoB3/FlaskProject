@@ -6,7 +6,7 @@ from resources.user import ChangeUserRole
 routes = (
     (Register, '/register'),
     (Login, '/login'),
-    (RegisterPaymentProvider, '/register/payment_provider'),
+    (RegisterPaymentProvider, '/register/payment_receiver'),
     # water data related
     (ListUpdateWaterTable, '/energy/water'),
     (WaterDataDeleteAndUpdate, '/energy/water/<int:id_>'),
@@ -20,4 +20,5 @@ routes = (
     (ListUpdateCompressorsTable, '/energy/compressors'),
     (CompressorsDeleteAndUpdate, '/energy/compressors/<int:id_>'),
     (ChangeUserRole, '/role_change/<int:id_>')
+
 )

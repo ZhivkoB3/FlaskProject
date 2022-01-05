@@ -14,7 +14,7 @@ class WaterManager:
         data['user_id'] = data_entry_pk
         energy_data = WaterModel(**data)
         db.session.add(energy_data)
-        db.session.commit()
+        db.session.flush()
         return energy_data
 
     @staticmethod
@@ -25,7 +25,7 @@ class WaterManager:
             raise NotFound('Data not present')
 
         db.session.delete(water)
-        db.session.commit()
+        db.session.flush()
 
     @staticmethod
     def update(data, id_, data_entry_pk):
@@ -37,7 +37,7 @@ class WaterManager:
 
         water_q.update(data)
         db.session.add(water)
-        db.session.commit()
+        db.session.flush()
         return water
 
 
@@ -51,7 +51,7 @@ class GasManager:
         data['user_id'] = data_entry_pk
         energy_data = NaturalGasModel(**data)
         db.session.add(energy_data)
-        db.session.commit()
+        db.session.flush()
         return energy_data
 
     @staticmethod
@@ -62,7 +62,7 @@ class GasManager:
             raise NotFound('Data not present')
 
         db.session.delete(gas)
-        db.session.commit()
+        db.session.flush()
 
 
     @staticmethod
@@ -75,7 +75,7 @@ class GasManager:
 
         gas_q.update(data)
         db.session.add(gas)
-        db.session.commit()
+        db.session.flush()
         return gas
 
 
@@ -89,7 +89,7 @@ class ElectricityManager:
         data['user_id'] = data_entry_pk
         energy_data = ElectricityModel(**data)
         db.session.add(energy_data)
-        db.session.commit()
+        db.session.flush()
         return energy_data
 
     @staticmethod
@@ -101,7 +101,7 @@ class ElectricityManager:
             raise NotFound('Data not present')
 
         db.session.delete(electricity)
-        db.session.commit()
+        db.session.flush()
 
     @staticmethod
     def update(data, id_, data_entry_pk):
@@ -113,7 +113,7 @@ class ElectricityManager:
 
         electricity_q.update(data)
         db.session.add(electricity)
-        db.session.commit()
+        db.session.flush()
         return electricity
 
 class CompressorsManager:
@@ -126,7 +126,7 @@ class CompressorsManager:
         data['user_id'] = data_entry_pk
         energy_data = CompressorsModel(**data)
         db.session.add(energy_data)
-        db.session.commit()
+        db.session.flush()
         return energy_data
 
     @staticmethod
@@ -138,7 +138,7 @@ class CompressorsManager:
             raise NotFound('Data not present')
 
         db.session.delete(compressors)
-        db.session.commit()
+        db.session.flush()
 
     @staticmethod
     def update(data, id_, data_entry_pk):
@@ -151,7 +151,7 @@ class CompressorsManager:
 
         compressors_q.update(data)
         db.session.add(compressors)
-        db.session.commit()
+        db.session.flush()
         return compressors
 
 

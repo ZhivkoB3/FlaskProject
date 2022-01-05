@@ -13,12 +13,14 @@ class BaseEnergyCreateResponseSchema(Schema):
 
 
 class CompressorsCreateResponseSchema(Schema):
+    pk = fields.Integer(required=True)
     total_kwh = fields.Integer(required=True)
     compressor_one = fields.Integer(required=True)
     compressor_two = fields.Integer(required=True)
     compressor_three = fields.Integer(required=True)
     compressor_four = fields.Integer(required=True)
     compressor_five = fields.Integer(required=True)
+    created_on = fields.DateTime(required=True)
 
 
 class ElectricityCreateResponseSchema(BaseEnergyCreateResponseSchema):

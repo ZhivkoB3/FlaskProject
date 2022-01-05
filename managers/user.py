@@ -13,7 +13,7 @@ class UserManager:
         user = UserModel(**user_data)
         db.session.add(user)
         try:
-            db.session.commit()
+            db.session.flush()
         except Exception as ex:
             if ex.origin.pgcode == UNIQUE_VIOLATION:
                 raise BadRequest('Please login')
@@ -33,6 +33,9 @@ class UserManager:
 
     @staticmethod
     def update(user_role, id_):
+        """
+        Changes the users role to another.
+        """
         user_q = UserModel.query.filter_by(pk=id_)
         user = user_q.first()
 
@@ -41,6 +44,6 @@ class UserManager:
 
         user_q.update(user_role)
         db.session.add(user)
-        db.session.commit()
+        db.session.flush()
         return user
 

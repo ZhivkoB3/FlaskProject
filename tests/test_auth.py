@@ -5,23 +5,15 @@ from flask_testing import TestCase
 from config import create_app
 from db import db
 from models import UserModel, RoleType
+from tests.bases import BaseTestCase
 
 from tests.helpers import object_as_dict
 
 
-class TestAuth(TestCase):
-    def setUp(self):
-        db.init_app(self.app)
-        db.create_all()
-
-    def tearDown(self):
-        db.session.remove()
-        db.drop_all()
-
-    def create_app(self):
-        self.headers = {'Content-Type': 'application/json'}
-        return create_app('config.TestApplicationConfig')
-
+class TestAuth(BaseTestCase):
+    """
+    Check if a user can be registered correctly.
+    """
     def test_register_user(self):
         url = '/register'
 

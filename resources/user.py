@@ -15,4 +15,4 @@ class ChangeUserRole(Resource):
     def put(self, id_):
         update_data = UserManager.update(request.get_json(), id_)
         schema = BaseUserResponseSchema()
-        return schema.dump(update_data)
+        return {'message': 'Role changed!'}, 200

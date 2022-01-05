@@ -26,12 +26,12 @@ class ListUpdateWaterTable(Resource):
         current_user = auth.current_user()
         energy = WaterManager.create(request.get_json(), current_user.pk)
         schema = WaterCreateResponseSchema()
-        return schema.dump(energy)
+        return schema.dump(energy), 201
 
 
 class WaterDataDeleteAndUpdate(Resource):
     @auth.login_required()
-    @permission_required(RoleType.data_entry)
+    @permission_required(RoleType.data_entry, RoleType.data_analyst)
     def delete(self, id_):
         WaterManager.delete(id_)
         return {'message': 'Success'}, 204
@@ -61,12 +61,12 @@ class ListUpdateGasTable(Resource):
         current_user = auth.current_user()
         energy = GasManager.create(request.get_json(), current_user.pk)
         schema = NaturalGasCreateResponseSchema()
-        return schema.dump(energy)
+        return schema.dump(energy), 201
 
 
 class GasDataDeleteAndUpdate(Resource):
     @auth.login_required()
-    @permission_required(RoleType.data_entry)
+    @permission_required(RoleType.data_entry, RoleType.data_analyst)
     def delete(self, id_):
         GasManager.delete(id_)
         return {"message" : "Success"}, 204
@@ -90,18 +90,18 @@ class ListUpdateElectricityTable(Resource):
         return schema.dump(electricity_amount, many=True)
 
     @auth.login_required()
-    @permission_required(RoleType.data_entry)
+    @permission_required(RoleType.data_entry, RoleType.data_analyst)
     @validate_schema(ElectricityCreateRequestSchema)
     def post(self):
         current_user = auth.current_user()
         energy = ElectricityManager.create(request.get_json(), current_user.pk)
         schema = ElectricityCreateResponseSchema()
-        return schema.dump(energy)
+        return schema.dump(energy), 201
 
 
 class ElectricityDeleteAndUpdate(Resource):
     @auth.login_required()
-    @permission_required(RoleType.data_entry)
+    @permission_required(RoleType.data_entry, RoleType.data_analyst)
     def delete(self, id_):
         ElectricityManager.delete(id_)
         return {'message':'Success'}, 204
@@ -125,18 +125,18 @@ class ListUpdateCompressorsTable(Resource):
         return schema.dump(compressors_amount, many=True)
 
     @auth.login_required()
-    @permission_required(RoleType.data_entry)
+    @permission_required(RoleType.data_entry, RoleType.data_analyst)
     @validate_schema(CompressorsCreateRequestSchema)
     def post(self):
         current_user = auth.current_user()
         energy = CompressorsManager.create(request.get_json(), current_user.pk)
         schema = CompressorsCreateResponseSchema()
-        return schema.dump(energy)
+        return schema.dump(energy), 201
 
 
 class CompressorsDeleteAndUpdate(Resource):
     @auth.login_required()
-    @permission_required(RoleType.data_entry)
+    @permission_required(RoleType.data_entry, RoleType.data_analyst)
     def delete(self, id_):
         CompressorsManager.delete(id_)
         return {'message': 'Success'}, 204
