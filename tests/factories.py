@@ -18,9 +18,10 @@ class BaseFactory(factory.Factory):
 class BaseUser(BaseFactory):
     class Meta:
         model = UserModel
+
     pk = factory.Sequence(lambda n: n)
-    first_name = factory.Faker('first_name')
-    last_name = factory.Faker('last_name')
+    first_name = factory.Faker("first_name")
+    last_name = factory.Faker("last_name")
     phone = str(randint(100000, 300000))
     email = factory.Faker("email")
     password = factory.Faker("password")

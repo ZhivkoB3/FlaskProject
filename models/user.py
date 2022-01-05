@@ -13,20 +13,12 @@ class BaseUserModel(db.Model):
 
 
 class PaymentReceiver(BaseUserModel):
-    __tablename__ = 'payment_receivers'
+    __tablename__ = "payment_receivers"
 
     iban = db.Column(db.String(22), nullable=False)
-    role = db.Column(
-        db.Enum(RoleType),
-        default=RoleType.unknown,
-        nullable=False
-    )
+    role = db.Column(db.Enum(RoleType), default=RoleType.unknown, nullable=False)
 
 
 class UserModel(BaseUserModel):
-    __tablename__ = 'users'
-    role = db.Column(
-        db.Enum(RoleType),
-        default=RoleType.unknown,
-        nullable=False
-    )
+    __tablename__ = "users"
+    role = db.Column(db.Enum(RoleType), default=RoleType.unknown, nullable=False)

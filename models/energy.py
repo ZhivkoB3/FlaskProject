@@ -1,5 +1,6 @@
 from sqlalchemy import func
 from sqlalchemy.ext.declarative import declared_attr
+
 from db import db
 
 
@@ -12,11 +13,11 @@ class BaseEnergyModel(db.Model):
 
     @declared_attr
     def user_id(self):
-        return db.Column(db.Integer, db.ForeignKey('users.pk'))
+        return db.Column(db.Integer, db.ForeignKey("users.pk"))
 
     @declared_attr
     def updated_by(self):
-        return db.Column(db.Integer, db.ForeignKey('users.pk'))
+        return db.Column(db.Integer, db.ForeignKey("users.pk"))
 
 
 class CompressorsModel(BaseEnergyModel):
@@ -30,7 +31,7 @@ class CompressorsModel(BaseEnergyModel):
 
 
 class ElectricityModel(BaseEnergyModel):
-    __tablename__ = 'electricity'
+    __tablename__ = "electricity"
     total_kwh = db.Column(db.Integer, nullable=False)
     casting = db.Column(db.Integer, nullable=False)
     high_pressure_casting = db.Column(db.Integer, nullable=False)
@@ -42,7 +43,7 @@ class ElectricityModel(BaseEnergyModel):
 
 
 class NaturalGasModel(BaseEnergyModel):
-    __tablename__ = 'natural_gas'
+    __tablename__ = "natural_gas"
     total_Nm3 = db.Column(db.Integer, nullable=False)
     casting = db.Column(db.Integer, nullable=False)
     high_pressure_casting = db.Column(db.Integer, nullable=False)
@@ -54,7 +55,7 @@ class NaturalGasModel(BaseEnergyModel):
 
 
 class WaterModel(BaseEnergyModel):
-    __tablename__ = 'water'
+    __tablename__ = "water"
     total_m3 = db.Column(db.Integer, nullable=False)
     casting = db.Column(db.Integer, nullable=False)
     high_pressure_casting = db.Column(db.Integer, nullable=False)

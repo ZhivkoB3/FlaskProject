@@ -2,7 +2,12 @@ import json
 
 from models import UserModel
 from tests.bases import BaseTestCase
-from tests.factories import AccountantFactory, DataEntryFactory, DataAnalystFactory, UnknownFactory
+from tests.factories import (
+    AccountantFactory,
+    DataEntryFactory,
+    DataAnalystFactory,
+    UnknownFactory,
+)
 from tests.helpers import generate_token, object_as_dict
 
 
@@ -16,6 +21,7 @@ class TestRoleChangeUnknown(BaseTestCase):
     Raises 403 and return a message because
     this user does not have a permission.
     """
+
     def test_role_change_with_unknown(self):
 
         users = UserModel.query.all()
@@ -29,20 +35,18 @@ class TestRoleChangeUnknown(BaseTestCase):
         users_data_added = object_as_dict(users[0])
 
         assert users_data_added == {
-            'pk': users[0].pk,
-            'first_name': users[0].first_name,
-            'last_name': users[0].last_name,
-            'phone': users[0].phone,
-            'email': users[0].email,
-            'password': users[0].password,
-            'role': users[0].role
+            "pk": users[0].pk,
+            "first_name": users[0].first_name,
+            "last_name": users[0].last_name,
+            "phone": users[0].phone,
+            "email": users[0].email,
+            "password": users[0].password,
+            "role": users[0].role,
         }
 
-        url = f'/role_change/{users[0].pk}'
+        url = f"/role_change/{users[0].pk}"
 
-        data = {
-            "role": "data_analyst"
-        }
+        data = {"role": "data_analyst"}
 
         unknown_user = UnknownFactory()
         token = generate_token(unknown_user)
@@ -57,6 +61,7 @@ class TestRoleChangeDataAnalyst(BaseTestCase):
     """
     Check TestRoleChangeUnknown comment
     """
+
     def test_role_change_with_data_analyst(self):
 
         users = UserModel.query.all()
@@ -69,20 +74,18 @@ class TestRoleChangeDataAnalyst(BaseTestCase):
         users_data_added = object_as_dict(users[0])
 
         assert users_data_added == {
-            'pk': users[0].pk,
-            'first_name': users[0].first_name,
-            'last_name': users[0].last_name,
-            'phone': users[0].phone,
-            'email': users[0].email,
-            'password': users[0].password,
-            'role': users[0].role
+            "pk": users[0].pk,
+            "first_name": users[0].first_name,
+            "last_name": users[0].last_name,
+            "phone": users[0].phone,
+            "email": users[0].email,
+            "password": users[0].password,
+            "role": users[0].role,
         }
 
-        url = f'/role_change/{users[0].pk}'
+        url = f"/role_change/{users[0].pk}"
 
-        data = {
-            "role": "data_analyst"
-        }
+        data = {"role": "data_analyst"}
         data_analyst = DataAnalystFactory()
         token = generate_token(data_analyst)
         self.headers.update({"Authorization": f"Bearer {token}"})
@@ -96,6 +99,7 @@ class TestRoleChangeDataEntry(BaseTestCase):
     """
     Check TestRoleChangeUnknown comment
     """
+
     def test_role_change_with_data_entry(self):
 
         users = UserModel.query.all()
@@ -109,20 +113,18 @@ class TestRoleChangeDataEntry(BaseTestCase):
         users_data_added = object_as_dict(users[0])
 
         assert users_data_added == {
-            'pk': users[0].pk,
-            'first_name': users[0].first_name,
-            'last_name': users[0].last_name,
-            'phone': users[0].phone,
-            'email': users[0].email,
-            'password': users[0].password,
-            'role': users[0].role
+            "pk": users[0].pk,
+            "first_name": users[0].first_name,
+            "last_name": users[0].last_name,
+            "phone": users[0].phone,
+            "email": users[0].email,
+            "password": users[0].password,
+            "role": users[0].role,
         }
 
-        url = '/role_change/1'
+        url = "/role_change/1"
 
-        data = {
-            "role": "data_analyst"
-        }
+        data = {"role": "data_analyst"}
 
         data_entry = DataEntryFactory()
         token = generate_token(data_entry)
@@ -137,6 +139,7 @@ class TestRoleChangeAccountant(BaseTestCase):
     """
     Check TestRoleChangeUnknown comment
     """
+
     def test_role_change_with_accountant(self):
 
         users = UserModel.query.all()
@@ -150,20 +153,18 @@ class TestRoleChangeAccountant(BaseTestCase):
         users_data_added = object_as_dict(users[0])
 
         assert users_data_added == {
-            'pk': users[0].pk,
-            'first_name': users[0].first_name,
-            'last_name': users[0].last_name,
-            'phone': users[0].phone,
-            'email': users[0].email,
-            'password': users[0].password,
-            'role': users[0].role
+            "pk": users[0].pk,
+            "first_name": users[0].first_name,
+            "last_name": users[0].last_name,
+            "phone": users[0].phone,
+            "email": users[0].email,
+            "password": users[0].password,
+            "role": users[0].role,
         }
 
-        url = '/role_change/1'
+        url = "/role_change/1"
 
-        data = {
-            "role": "data_analyst"
-        }
+        data = {"role": "data_analyst"}
 
         accountant = AccountantFactory()
         token = generate_token(accountant)

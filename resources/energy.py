@@ -2,17 +2,29 @@ from flask import request
 from flask_restful import Resource
 
 from managers.auth import auth
-from managers.energy import WaterManager, GasManager, ElectricityManager, CompressorsManager
+from managers.energy import (
+    WaterManager,
+    GasManager,
+    ElectricityManager,
+    CompressorsManager,
+)
 from models import RoleType
-from schemas.request.energy import WaterCreateRequestSchema, NaturalGasCreateRequestSchema, \
-    ElectricityCreateRequestSchema, CompressorsCreateRequestSchema
-from schemas.response.energy import WaterCreateResponseSchema, NaturalGasCreateResponseSchema, \
-    ElectricityCreateResponseSchema, CompressorsCreateResponseSchema
+from schemas.request.energy import (
+    WaterCreateRequestSchema,
+    NaturalGasCreateRequestSchema,
+    ElectricityCreateRequestSchema,
+    CompressorsCreateRequestSchema,
+)
+from schemas.response.energy import (
+    WaterCreateResponseSchema,
+    NaturalGasCreateResponseSchema,
+    ElectricityCreateResponseSchema,
+    CompressorsCreateResponseSchema,
+)
 from utils.decorator import validate_schema, permission_required
 
 
 class ListUpdateWaterTable(Resource):
-
     @auth.login_required()
     def get(self):
         water_amount = WaterManager.get_all()
@@ -34,7 +46,7 @@ class WaterDataDeleteAndUpdate(Resource):
     @permission_required(RoleType.data_entry, RoleType.data_analyst)
     def delete(self, id_):
         WaterManager.delete(id_)
-        return {'message': 'Success'}, 204
+        return {"message": "Success"}, 204
 
     @auth.login_required()
     @permission_required(RoleType.data_entry, RoleType.data_analyst)
@@ -47,7 +59,6 @@ class WaterDataDeleteAndUpdate(Resource):
 
 
 class ListUpdateGasTable(Resource):
-
     @auth.login_required()
     def get(self):
         gas_amount = GasManager.get_all()
@@ -69,7 +80,7 @@ class GasDataDeleteAndUpdate(Resource):
     @permission_required(RoleType.data_entry, RoleType.data_analyst)
     def delete(self, id_):
         GasManager.delete(id_)
-        return {"message" : "Success"}, 204
+        return {"message": "Success"}, 204
 
     @auth.login_required()
     @permission_required(RoleType.data_entry, RoleType.data_analyst)
@@ -82,7 +93,6 @@ class GasDataDeleteAndUpdate(Resource):
 
 
 class ListUpdateElectricityTable(Resource):
-
     @auth.login_required()
     def get(self):
         electricity_amount = ElectricityManager.get_all()
@@ -104,20 +114,21 @@ class ElectricityDeleteAndUpdate(Resource):
     @permission_required(RoleType.data_entry, RoleType.data_analyst)
     def delete(self, id_):
         ElectricityManager.delete(id_)
-        return {'message':'Success'}, 204
+        return {"message": "Success"}, 204
 
     @auth.login_required()
     @permission_required(RoleType.data_entry, RoleType.data_analyst)
     @validate_schema(ElectricityCreateRequestSchema)
     def put(self, id_):
         current_user = auth.current_user()
-        update_data = ElectricityManager.update(request.get_json(), id_, current_user.pk)
+        update_data = ElectricityManager.update(
+            request.get_json(), id_, current_user.pk
+        )
         schema = ElectricityCreateResponseSchema()
         return schema.dump(update_data)
 
 
 class ListUpdateCompressorsTable(Resource):
-
     @auth.login_required()
     def get(self):
         compressors_amount = CompressorsManager.get_all()
@@ -139,13 +150,15 @@ class CompressorsDeleteAndUpdate(Resource):
     @permission_required(RoleType.data_entry, RoleType.data_analyst)
     def delete(self, id_):
         CompressorsManager.delete(id_)
-        return {'message': 'Success'}, 204
+        return {"message": "Success"}, 204
 
     @auth.login_required()
     @permission_required(RoleType.data_entry, RoleType.data_analyst)
     @validate_schema(CompressorsCreateRequestSchema)
     def put(self, id_):
         current_user = auth.current_user()
-        update_data = CompressorsManager.update(request.get_json(), id_, current_user.pk)
+        update_data = CompressorsManager.update(
+            request.get_json(), id_, current_user.pk
+        )
         schema = CompressorsCreateResponseSchema()
         return schema.dump(update_data)

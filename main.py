@@ -14,6 +14,7 @@ def init_request():
     db.init_app(app)
     db.create_all()
 
+
 @app.after_request
 def conclude_request(resp):
     try:
@@ -24,6 +25,7 @@ def conclude_request(resp):
         else:
             raise InternalServerError("Server is unavailable. Please try again later")
     return resp
+
 
 if __name__ == "__main__":
     app.run()

@@ -7,33 +7,27 @@ class TestAuth(BaseTestCase):
     """
     Tests if all the endpoints are working correctly.
     """
+
     def test_authentication_missing_auth_header_raises(self):
         url_methods = [
-            ('/energy/water', "GET"),
-            ('/energy/water', "POST"),
-
-            ('/energy/water/1', "PUT"),
-            ('/energy/water/1', "DELETE"),
-
-            ('/energy/gas', "GET"),
-            ('/energy/gas', "POST"),
-
-            ('/energy/gas/1', "PUT"),
-            ('/energy/gas/1', "DELETE"),
-
-            ('/energy/electricity', "GET"),
-            ('/energy/electricity', "POST"),
+            ("/energy/water", "GET"),
+            ("/energy/water", "POST"),
+            ("/energy/water/1", "PUT"),
+            ("/energy/water/1", "DELETE"),
+            ("/energy/gas", "GET"),
+            ("/energy/gas", "POST"),
+            ("/energy/gas/1", "PUT"),
+            ("/energy/gas/1", "DELETE"),
+            ("/energy/electricity", "GET"),
+            ("/energy/electricity", "POST"),
             #
-            ('/energy/electricity/1', "PUT"),
-            ('/energy/electricity/1', "DELETE"),
-
-            ('/energy/compressors', "GET"),
-            ('/energy/compressors', "POST"),
-
-            ('/energy/compressors/1', "PUT"),
-            ('/energy/compressors/1', "DELETE"),
-
-            ('/role_change/1', "PUT")
+            ("/energy/electricity/1", "PUT"),
+            ("/energy/electricity/1", "DELETE"),
+            ("/energy/compressors", "GET"),
+            ("/energy/compressors", "POST"),
+            ("/energy/compressors/1", "PUT"),
+            ("/energy/compressors/1", "DELETE"),
+            ("/role_change/1", "PUT"),
         ]
 
         for url, method in url_methods:

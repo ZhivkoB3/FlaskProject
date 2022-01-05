@@ -1,7 +1,12 @@
 from werkzeug.exceptions import NotFound
 
 from db import db
-from models.energy import WaterModel, NaturalGasModel, ElectricityModel, CompressorsModel
+from models.energy import (
+    WaterModel,
+    NaturalGasModel,
+    ElectricityModel,
+    CompressorsModel,
+)
 
 
 class WaterManager:
@@ -11,7 +16,7 @@ class WaterManager:
 
     @staticmethod
     def create(data, data_entry_pk):
-        data['user_id'] = data_entry_pk
+        data["user_id"] = data_entry_pk
         energy_data = WaterModel(**data)
         db.session.add(energy_data)
         db.session.flush()
@@ -19,21 +24,21 @@ class WaterManager:
 
     @staticmethod
     def delete(id_):
-        water_q = WaterModel.query.filter_by(pk = id_)
+        water_q = WaterModel.query.filter_by(pk=id_)
         water = water_q.first()
         if not water:
-            raise NotFound('Data not present')
+            raise NotFound("Data not present")
 
         db.session.delete(water)
         db.session.flush()
 
     @staticmethod
     def update(data, id_, data_entry_pk):
-        data['user_id'] = data_entry_pk
+        data["user_id"] = data_entry_pk
         water_q = WaterModel.query.filter_by(pk=id_)
         water = water_q.first()
         if not water:
-            raise NotFound('Data not present')
+            raise NotFound("Data not present")
 
         water_q.update(data)
         db.session.add(water)
@@ -48,7 +53,7 @@ class GasManager:
 
     @staticmethod
     def create(data, data_entry_pk):
-        data['user_id'] = data_entry_pk
+        data["user_id"] = data_entry_pk
         energy_data = NaturalGasModel(**data)
         db.session.add(energy_data)
         db.session.flush()
@@ -56,22 +61,21 @@ class GasManager:
 
     @staticmethod
     def delete(id_):
-        gas_q = NaturalGasModel.query.filter_by(pk = id_)
+        gas_q = NaturalGasModel.query.filter_by(pk=id_)
         gas = gas_q.first()
         if not gas:
-            raise NotFound('Data not present')
+            raise NotFound("Data not present")
 
         db.session.delete(gas)
         db.session.flush()
 
-
     @staticmethod
     def update(data, id_, data_entry_pk):
-        data['updated_by'] = data_entry_pk
+        data["updated_by"] = data_entry_pk
         gas_q = NaturalGasModel.query.filter_by(pk=id_)
         gas = gas_q.first()
         if not gas:
-            raise NotFound('Data not present')
+            raise NotFound("Data not present")
 
         gas_q.update(data)
         db.session.add(gas)
@@ -86,7 +90,7 @@ class ElectricityManager:
 
     @staticmethod
     def create(data, data_entry_pk):
-        data['user_id'] = data_entry_pk
+        data["user_id"] = data_entry_pk
         energy_data = ElectricityModel(**data)
         db.session.add(energy_data)
         db.session.flush()
@@ -98,23 +102,24 @@ class ElectricityManager:
         electricity = electricity_q.first()
 
         if not electricity:
-            raise NotFound('Data not present')
+            raise NotFound("Data not present")
 
         db.session.delete(electricity)
         db.session.flush()
 
     @staticmethod
     def update(data, id_, data_entry_pk):
-        data['user_id'] = data_entry_pk
+        data["user_id"] = data_entry_pk
         electricity_q = ElectricityModel.query.filter_by(pk=id_)
         electricity = electricity_q.first()
         if not electricity:
-            raise NotFound('Data not present')
+            raise NotFound("Data not present")
 
         electricity_q.update(data)
         db.session.add(electricity)
         db.session.flush()
         return electricity
+
 
 class CompressorsManager:
     @staticmethod
@@ -123,7 +128,7 @@ class CompressorsManager:
 
     @staticmethod
     def create(data, data_entry_pk):
-        data['user_id'] = data_entry_pk
+        data["user_id"] = data_entry_pk
         energy_data = CompressorsModel(**data)
         db.session.add(energy_data)
         db.session.flush()
@@ -135,25 +140,21 @@ class CompressorsManager:
         compressors = compressors_q.first()
 
         if not compressors:
-            raise NotFound('Data not present')
+            raise NotFound("Data not present")
 
         db.session.delete(compressors)
         db.session.flush()
 
     @staticmethod
     def update(data, id_, data_entry_pk):
-        data['updated_by'] = data_entry_pk
+        data["updated_by"] = data_entry_pk
         compressors_q = CompressorsModel.query.filter_by(pk=id_)
         compressors = compressors_q.first()
 
         if not compressors:
-            raise NotFound('Data not present')
+            raise NotFound("Data not present")
 
         compressors_q.update(data)
         db.session.add(compressors)
         db.session.flush()
         return compressors
-
-
-
-

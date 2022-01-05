@@ -3,7 +3,11 @@ from flask_restful import Resource
 
 from managers.auth import AuthManager
 from managers.user import UserManager
-from schemas.request.user import BaseUserSchema, BaseUserRegisterSchema, PaymentReceiverRegisterSchema
+from schemas.request.user import (
+    BaseUserSchema,
+    BaseUserRegisterSchema,
+    PaymentReceiverRegisterSchema,
+)
 from utils.decorator import validate_schema
 
 
@@ -12,7 +16,7 @@ class Register(Resource):
     def post(self):
         user = UserManager.register(request.get_json())
         token = AuthManager.encode_token(user)
-        return {'token': token}, 201
+        return {"token": token}, 201
 
 
 class RegisterPaymentProvider(Resource):
@@ -20,7 +24,7 @@ class RegisterPaymentProvider(Resource):
     def post(self):
         user = UserManager.register(request.get_json())
         token = AuthManager.encode_token(user)
-        return {'token': token}, 201
+        return {"token": token}, 201
 
 
 class Login(Resource):
@@ -28,4 +32,4 @@ class Login(Resource):
     def post(self):
         user = UserManager.login(request.get_json())
         token = AuthManager.encode_token(user)
-        return {'token': token}, 200
+        return {"token": token}, 200

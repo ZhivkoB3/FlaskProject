@@ -14,5 +14,5 @@ class BaseTestCase(TestCase):
         db.drop_all()
 
     def create_app(self):
-        self.headers = {'Content-Type': 'application/json'}
-        return create_app('config.TestApplicationConfig')
+        self.headers = {"Content-Type": "application/json"}
+        return create_app("config.TestApplicationConfig")
