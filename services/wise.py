@@ -81,14 +81,3 @@ class WiseService:
         if resp.status_code in (200, 201):
             return resp.json()["status"]
         raise InternalServerError("Payment provider is not available at the moment")
-
-
-if __name__ == "__main__":
-    wise = WiseService()
-    # quote_id = wise.create_quote(32)
-    # recipient_id = wise.create_recipient("Emil Petrov", "BG80BNBG96611020345678")
-    # custom_id = uuid.uuid4()
-    # transfer_id = wise.create_transfer(recipient_id, quote_id, custom_id)
-    cancel = wise.cancel_transfer(50414373)
-
-    # status = wise.fund_transfer(trasnfer_id)
