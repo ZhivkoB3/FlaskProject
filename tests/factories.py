@@ -3,7 +3,8 @@ from random import randint
 import factory
 
 from db import db
-from models import UserModel, RoleType
+from models import UserModel, RoleType, PaymentReceiverModel, TransactionModel
+from tests.helpers import mock_uuid
 
 
 class BaseFactory(factory.Factory):
@@ -45,3 +46,17 @@ class AccountantFactory(BaseUser):
 
 class CEOFactory(BaseUser):
     role = RoleType.ceo
+
+
+class PaymentReceiverFactory(BaseFactory):
+    class Meta:
+        model = PaymentReceiverModel
+
+    pk = factory.Sequence(lambda n: n)
+    first_name = factory.Faker("first_name")
+    last_name = factory.Faker("last_name")
+    phone = str(randint(100000, 300000))
+    email = factory.Faker("email")
+    password = factory.Faker("password")
+    role = RoleType.bulgargaz
+    iban = factory.Faker("iban")

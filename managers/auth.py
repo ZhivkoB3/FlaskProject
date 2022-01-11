@@ -5,7 +5,7 @@ from decouple import config
 from flask_httpauth import HTTPTokenAuth
 from werkzeug.exceptions import BadRequest
 
-from models.user import UserModel
+from models.user import UserModel, PaymentReceiverModel
 
 
 class AuthManager:

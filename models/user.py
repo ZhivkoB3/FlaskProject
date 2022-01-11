@@ -12,9 +12,8 @@ class BaseUserModel(db.Model):
     password = db.Column(db.String, nullable=False)
 
 
-class PaymentReceiver(BaseUserModel):
+class PaymentReceiverModel(BaseUserModel):
     __tablename__ = "payment_receivers"
-
     iban = db.Column(db.String(22), nullable=False)
     role = db.Column(db.Enum(RoleType), default=RoleType.unknown, nullable=False)
 

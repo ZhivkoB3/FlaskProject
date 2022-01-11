@@ -2,7 +2,7 @@ import json
 
 from models import UserModel
 from tests.bases import BaseTestCase
-from tests.factories import CEOFactory, UnknownFactory
+from tests.factories import CEOFactory
 from tests.helpers import generate_token, object_as_dict
 
 
@@ -17,11 +17,21 @@ class TestRoleChange(BaseTestCase):
     """
 
     def test_role_change(self):
+        url = "/register"
+
+        data = {
+            "password": "asddsa",
+            "first_name": "Some first name",
+            "last_name": "Some last name",
+            "phone": "0898123456113",
+            "email": "abc@cba.com",
+        }
 
         users = UserModel.query.all()
         assert len(users) == 0
 
-        base_user = UnknownFactory()
+        resp = self.client.post(url, data=json.dumps(data), headers=self.headers)
+
         users = UserModel.query.all()
         assert len(users) == 1
 

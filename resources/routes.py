@@ -1,4 +1,4 @@
-from resources.auth import Login, Register, RegisterPaymentProvider
+from resources.auth import Login, Register, ServiceProvider, LoginServiceProvider
 from resources.energy import (
     ListUpdateWaterTable,
     ListUpdateGasTable,
@@ -9,15 +9,23 @@ from resources.energy import (
     ListUpdateCompressorsTable,
     CompressorsDeleteAndUpdate,
 )
-from resources.user import ChangeUserRole
+from resources.payment_requests import (
+    PaymentRequestsDeleteAndUpdate,
+    ListUpdatePaymentRequestsTable,
+    RejectPaymentRequest,
+    ApprovePaymentRequest,
+)
+from resources.user import ChangeUserRole, ChangeServiceProviderRole
 
 routes = (
     (Register, "/register"),
     (Login, "/login"),
+    # Service providers
     (
-        RegisterPaymentProvider,
-        "/register/payment_receiver",
-    ),  # TODO - change RegisterPaymentProvider -> RegisterPaymentReceiver
+        ServiceProvider,
+        "/register/service_provider",
+    ),
+    (LoginServiceProvider, "/login/service_provider"),
     # water data related
     (ListUpdateWaterTable, "/energy/water"),
     (WaterDataDeleteAndUpdate, "/energy/water/<int:id_>"),
@@ -30,6 +38,12 @@ routes = (
     # compressors data related
     (ListUpdateCompressorsTable, "/energy/compressors"),
     (CompressorsDeleteAndUpdate, "/energy/compressors/<int:id_>"),
-    (ChangeUserRole, "/role_change/<int:id_>")
-    # TODO Delete user
+    # payments requests related
+    (ListUpdatePaymentRequestsTable, "/payments"),
+    (PaymentRequestsDeleteAndUpdate, "/payments/<int:id_>"),
+    (ApprovePaymentRequest, "/accountants/payments/<int:id_>/approved"),
+    (RejectPaymentRequest, "/accountants/payments/<int:id_>/rejected"),
+    # Role change
+    (ChangeUserRole, "/role_change/<int:id_>"),
+    (ChangeServiceProviderRole, "/role_change_service_provider/<int:id_>"),
 )

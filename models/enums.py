@@ -9,3 +9,9 @@ class RoleType(enum.Enum):
     data_analyst = "data_analyst"
     accountant = "accountant"
     ceo = "CEO"
+
+
+class State(enum.Enum):
+    rejected = "Rejected"
+    pending = "Pending"
+    approved = "Approved"

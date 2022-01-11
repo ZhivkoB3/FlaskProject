@@ -2,6 +2,8 @@ from flask_testing import TestCase
 
 from config import create_app
 from db import db
+from tests.factories import AccountantFactory
+from tests.helpers import generate_token
 
 
 class BaseTestCase(TestCase):
@@ -16,3 +18,5 @@ class BaseTestCase(TestCase):
     def create_app(self):
         self.headers = {"Content-Type": "application/json"}
         return create_app("config.TestApplicationConfig")
+
+
